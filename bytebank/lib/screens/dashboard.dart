@@ -22,14 +22,14 @@ class Dashboard extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                _FeatureItem(
+                FeatureItem(
                   'Transfer',
                   Icons.monetization_on,
                   onClick: () {
                     _showContactsList(context);
                   },
                 ),
-                _FeatureItem(
+                FeatureItem(
                   'Transaction Feed',
                   Icons.description,
                   onClick: () {
@@ -61,12 +61,12 @@ _showTransactionsList(BuildContext context) {
   );
 }
 
-class _FeatureItem extends StatelessWidget {
+class FeatureItem extends StatelessWidget {
   final String _name;
   final IconData _icon;
   final Function onClick;
 
-  _FeatureItem(this._name, this._icon, {@required this.onClick});
+  FeatureItem(this._name, this._icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
