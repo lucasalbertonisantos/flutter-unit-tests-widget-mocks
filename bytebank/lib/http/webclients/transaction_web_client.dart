@@ -34,7 +34,7 @@ class TransactionWebClient {
     if (_statusCodeResponses.containsKey(statusCode)) {
       return _statusCodeResponses[statusCode];
     }
-    return 'Unkown error';
+    return 'Unknown error';
   }
 
   static final Map<int, String> _statusCodeResponses = {
