@@ -71,11 +71,11 @@ _showTransactionsList(BuildContext context) {
 }
 
 class FeatureItem extends StatelessWidget {
-  final String _name;
-  final IconData _icon;
+  final String name;
+  final IconData icon;
   final Function onClick;
 
-  FeatureItem(this._name, this._icon, {@required this.onClick});
+  FeatureItem(this.name, this.icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +93,12 @@ class FeatureItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(
-                  _icon,
+                  icon,
                   color: Colors.white,
                   size: 24.0,
                 ),
                 Text(
-                  _name,
+                  name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
