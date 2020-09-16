@@ -6,6 +6,7 @@ import 'package:bytebank/components/transaction_auth_dialog.dart';
 import 'package:bytebank/http/webclients/transaction_web_client.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/transaction.dart';
+import 'package:bytebank/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -20,7 +21,6 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
-  final TransactionWebClient _webClient = TransactionWebClient();
   final String transactionId = Uuid().v4();
 
   bool _sending = false;
@@ -130,8 +130,9 @@ class _TransactionFormState extends State<TransactionForm> {
     setState(() {
       _sending = true;
     });
+    final dependencies = AppDependencies.of(context);
     final Transaction transaction =
-        await _webClient.save(transactionCreated, password).catchError((e) {
+        await dependencies.transactionWebClient.save(transactionCreated, password).catchError((e) {
       _showFailureMessage(context,
           message: 'timeout submitting the transaction');
     }, test: (e) => e is TimeoutException).catchError((e) {

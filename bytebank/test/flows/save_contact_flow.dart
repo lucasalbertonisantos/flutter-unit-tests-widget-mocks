@@ -7,13 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../matchers/matchers.dart';
 import '../mocks/mocks.dart';
 import 'actions.dart';
 
-void main(){
+void main() {
   testWidgets('Should save a contact', (tester) async {
     final mockContactDao = MockContactDao();
-    await tester.pumpWidget(MyApp(contactDao: mockContactDao));
+    final mockTransactionWebClient = MockTransactionWebClient();
+    await tester.pumpWidget(MyApp(
+      contactDao: mockContactDao,
+      transactionWebClient: mockTransactionWebClient,
+    ));
     final dashboard = find.byType(Dashboard);
     expect(dashboard, findsOneWidget);
 
@@ -33,11 +38,13 @@ void main(){
     final contactForm = find.byType(ContactForm);
     expect(contactForm, findsOneWidget);
 
-    final nameTextField = find.byWidgetPredicate((widget) => _textFieldMatcher(widget, 'Full name'));
+    final nameTextField = find
+        .byWidgetPredicate((widget) => textFieldByLabelText(widget, 'Full name'));
     expect(nameTextField, findsOneWidget);
     await tester.enterText(nameTextField, 'Lucas');
 
-    final accountNumberTextField = find.byWidgetPredicate((widget) => _textFieldMatcher(widget, 'Account number'));
+    final accountNumberTextField = find.byWidgetPredicate(
+        (widget) => textFieldByLabelText(widget, 'Account number'));
     expect(accountNumberTextField, findsOneWidget);
     await tester.enterText(accountNumberTextField, '1000');
 
@@ -55,9 +62,4 @@ void main(){
   });
 }
 
-bool _textFieldMatcher(Widget widget, String labelText) {
-  if(widget is TextField) {
-    return widget.decoration.labelText == labelText;
-  }
-  return false;
-}
+

@@ -1,3 +1,4 @@
+import 'package:bytebank/http/webclients/transaction_web_client.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:bytebank/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,14 @@ void main() => runApp(MyApp(contactDao: ContactDao()));
 
 class MyApp extends StatelessWidget {
   final ContactDao contactDao;
+  final TransactionWebClient transactionWebClient;
 
-  MyApp({@required this.contactDao});
+  MyApp({@required this.contactDao, @required this.transactionWebClient});
 
   @override
   Widget build(BuildContext context) {
     return AppDependencies(
+      transactionWebClient: this.transactionWebClient,
       contactDao: this.contactDao,
       child: MaterialApp(
         theme: ThemeData(
