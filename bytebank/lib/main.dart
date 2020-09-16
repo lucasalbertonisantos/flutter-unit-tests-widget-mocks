@@ -1,4 +1,5 @@
 import 'package:bytebank/screens/dashboard.dart';
+import 'package:bytebank/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 
 import 'database/dao/contact_dao.dart';
@@ -12,16 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.green[900],
-        accentColor: Colors.blueAccent[700],
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blueAccent[700],
-          textTheme: ButtonTextTheme.primary,
+    return AppDependencies(
+      contactDao: this.contactDao,
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.green[900],
+          accentColor: Colors.blueAccent[700],
+          buttonTheme: ButtonThemeData(
+            buttonColor: Colors.blueAccent[700],
+            textTheme: ButtonTextTheme.primary,
+          ),
         ),
+        home: Dashboard(),
       ),
-      home: Dashboard(contactDao: this.contactDao),
     );
   }
 }
